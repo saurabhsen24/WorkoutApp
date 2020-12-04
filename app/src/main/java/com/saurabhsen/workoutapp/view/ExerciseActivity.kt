@@ -21,7 +21,7 @@ import kotlinx.android.synthetic.main.dialog_custom_back_confirmation.*
 import java.util.*
 import kotlin.collections.ArrayList
 
-class ExerciseActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
+class ExerciseActivity : AppCompatActivity(),TextToSpeech.OnInitListener {
 
     private var restTimer: CountDownTimer? = null
     private var restProgress = 0
@@ -36,7 +36,6 @@ class ExerciseActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
     private var player: MediaPlayer? = null
     private var exerciseAdapter: ExerciseStatusAdapter? = null
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_excercise)
@@ -50,7 +49,7 @@ class ExerciseActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
             customDialogForBackButton()
         }
 
-        tts = TextToSpeech(this, this)
+        tts = TextToSpeech(this,this)
         exerciseList = Constants.defaultExercise()
         setupRestView()
 
@@ -68,12 +67,12 @@ class ExerciseActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
             exerciseProgress = 0
         }
 
-        if (tts != null) {
+        if(tts != null){
             tts!!.stop()
             tts!!.shutdown()
         }
 
-        if (player != null) {
+        if(player != null){
             player!!.stop()
         }
 
@@ -82,7 +81,7 @@ class ExerciseActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
 
     private fun setProgressBar() {
         progressBar.progress = restProgress
-        restTimer = object : CountDownTimer(10000, 1000) { //10000
+        restTimer = object : CountDownTimer(10000, 1000) {
             override fun onTick(millisUntilFinished: Long) {
                 restProgress++
                 progressBar.progress = 10 - restProgress
@@ -95,16 +94,17 @@ class ExerciseActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
                 exerciseAdapter!!.notifyDataSetChanged()
                 setupExerciseView()
             }
+
         }.start()
     }
 
     private fun setupRestView() {
 
-        try {
+        try{
             player = MediaPlayer.create(applicationContext, R.raw.press_start)
             player!!.isLooping = false
             player!!.start()
-        } catch (e: Exception) {
+        }catch (e: Exception){
             e.printStackTrace()
         }
 
@@ -122,7 +122,7 @@ class ExerciseActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
 
     private fun setExerciseProgressBar() {
         progressBarExercise.progress = exerciseProgress
-        exerciseTimer = object : CountDownTimer(30000, 1000) { //30000
+        exerciseTimer = object : CountDownTimer(30000, 1000) {
             override fun onTick(millisUntilFinished: Long) {
                 exerciseProgress++
                 progressBarExercise.progress = 30 - exerciseProgress
@@ -162,33 +162,32 @@ class ExerciseActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
     }
 
     override fun onInit(status: Int) {
-        if (status == TextToSpeech.SUCCESS) {
+        if(status == TextToSpeech.SUCCESS){
             val result = tts!!.setLanguage(Locale.US)
-            if (result == TextToSpeech.LANG_MISSING_DATA || result == TextToSpeech.LANG_NOT_SUPPORTED) {
-                Log.e("TTS", "The Language specified is not supported")
+            if(result == TextToSpeech.LANG_MISSING_DATA || result == TextToSpeech.LANG_NOT_SUPPORTED){
+                Log.e("TTS","The Language specified is not supported")
             }
-        } else {
-            Log.e("TTS", "Initialization Failed")
+        }else{
+            Log.e("TTS","Initialization Failed")
         }
     }
 
-    private fun speakOut(text: String) {
+    private fun speakOut(text: String){
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            tts!!.speak(text, TextToSpeech.QUEUE_FLUSH, null, null);
+            tts!!.speak(text,TextToSpeech.QUEUE_FLUSH,null,null);
         } else {
             tts!!.speak(text, TextToSpeech.QUEUE_FLUSH, null);
         }
     }
 
-    private fun setupExerciseStatusRecyclerView() {
-        rvExerciseStatus.layoutManager = LinearLayoutManager(this, RecyclerView.HORIZONTAL, false)
+    private fun setupExerciseStatusRecyclerView(){
+        rvExerciseStatus.layoutManager = LinearLayoutManager(this, RecyclerView.HORIZONTAL , false)
         exerciseAdapter = ExerciseStatusAdapter(exerciseList!!, this)
         rvExerciseStatus.adapter = exerciseAdapter!!
     }
 
-    private fun customDialogForBackButton() {
+    private fun  customDialogForBackButton(){
         val customDialog = Dialog(this)
-
         customDialog.setContentView(R.layout.dialog_custom_back_confirmation)
         customDialog.tvYes.setOnClickListener {
             finish()

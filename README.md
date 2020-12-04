@@ -1,6 +1,6 @@
 # Workout App
 
-    This app is created in Kotlin and the motive behind this app was to stay fit and healthy as during this pandemic people have been staying at home for a long time and this might cause various health problems. People can do workouts at home and various exercises are shown and I also used Text to Speech in the android app where the name of the exercise and "Get ready for exercise" will be spoken by app.
+        This app is created in Kotlin and the motive behind this app was to stay fit and healthy as during this pandemic people have been staying at home for a long time and this might cause various health problems. People can do workouts at home and various exercises are shown and I also used Text to Speech in the android app where the name of the exercise and "Get ready for exercise" will be spoken by app.
 
 
 # Project Structure
